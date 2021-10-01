@@ -15,7 +15,7 @@ import javax.servlet.annotation.WebInitParam;
 		urlPatterns = {"/LoginServlet"},
 		initParams = {
 				@WebInitParam(name = "user",value="Vaibhav"),
-				@WebInitParam(name = "password", value = "root")
+				@WebInitParam(name = "password", value = "abc@210")
 		}
 	)
 
@@ -27,13 +27,13 @@ import javax.servlet.annotation.WebInitParam;
 			
 			String userID = getServletConfig().getInitParameter("user");
 			String password = getServletConfig().getInitParameter("password");
-			if (userID.equals(user) && password.equals(pwd) && user.matches("^[A-Z][a-z]{2,}")) {
+			if (userID.equals(user) && password.equals(pwd) && user.matches("^[A-Z][a-z]{2,}") && pwd.matches("[[A-Z]{1,}[a-z]{1,}[0-9]{1,}[@$]{1}]{8,}")) {
 				req.setAttribute("user", user);
 				req.getRequestDispatcher("LoginSuccess.jsp").forward(req, resp);
 			}else {
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
 				PrintWriter out = resp.getWriter();
-				out.println("<font color = red>Wrong username or invalid username or password</font>");
+				out.println("<font color = red>Wrong username or password</font>");
 				rd.include(req, resp);
 			}
 		}
